@@ -326,10 +326,10 @@ const createOrder=()=>{
     .then(url => {   //是响应成功后返回一个二维码
       // console.log(url);
       imageUrl.value=url
-      showPay.value=true
-    })
+      showPay.value=true   
+    })  
     .catch(err => {
-      console.error(err,'err')
+      console.error(err)
     })
     })
 }
