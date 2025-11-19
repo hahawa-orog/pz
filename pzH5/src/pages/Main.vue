@@ -24,7 +24,6 @@ const route = useRoute()
 const active = ref(0);
 
 
-console.log('router',router);
 </script>
 
 <style lang="scss" scoped>
