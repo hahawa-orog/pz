@@ -15,8 +15,8 @@
             </el-popconfirm>
         </div>
 
-        <!-- 展示陪护师列表 -->
-        <el-table :data="companionListOptions.list" :style="{width:' 100%'}" ref="table"  @selection-change="handleSelectionChange">
+        <!-- 展示陪护师列表        select事件是选中checkbox之后的回调，选中之后会传递一个数组，里面是被选中的所有行-->
+        <el-table :data="companionListOptions.list" :style="{width:' 100%'}" ref="table"  @select="handleSelectionChange">
             <el-table-column type="selection" width="55" />
             <el-table-column prop="id" label="id" width="80" />
             <el-table-column prop="name" label="昵称" width="180" />
@@ -39,7 +39,7 @@
             <el-table-column prop="active" label="状态" width="90">
                 <template #default="scope">
                     <el-tag
-                        :key="scope.row.active ? 'primary' : 'danger'"
+                        :type="scope.row.active ? 'primary' : 'danger'"
                         effect="dark"
                         >
                         {{ scope.row.active ? '正常' : '异常' }}
@@ -87,7 +87,7 @@
                     <el-image v-else :src="formInfo.avatar" @click="dialogImgVisable=true" style="width:100px;height:100px;"></el-image>
                 </el-form-item>
                 <el-form-item label="性别" prop="sex">
-                    <el-select v-model="formInfo.sex" placeholder="请选择昵称">
+                    <el-select v-model="formInfo.sex" placeholder="请选择性别">
                         <el-option label="男" value="1"></el-option>
                         <el-option label="女" value="2"></el-option>
                     </el-select>
@@ -141,6 +141,7 @@ import { Plus,Delete } from '@element-plus/icons-vue'
 import { ref, reactive, onMounted,nextTick,toRaw } from "vue";
 import { photoList, Companion, CompanionList,deleteCompanion } from "../../../api/index";
 import { ElMessage } from "element-plus";
+
 const dialogFormVisible = ref(false);
 const dialogImgVisable = ref(false);
 const type=ref(0)    //type是0，表示是修改，1表示添加
@@ -164,6 +165,7 @@ const paginationData = reactive({
   pageSize: 5
 });
 
+// 陪护师列表
 const companionListOptions = reactive({
   list: [],
   total: 0
@@ -172,6 +174,7 @@ const companionListOptions = reactive({
 const getCompanionList = () => {
   CompanionList(paginationData).then(({ data }) => {
     Object.assign(companionListOptions, data.data);
+    console.log('companionListOptions',companionListOptions);
     companionListOptions.list.forEach((item)=>{
         item.create_time=dayjs(item.create_time).format('YYYY-MM-DD HH:mm:ss')
     })
@@ -183,6 +186,8 @@ const fileList = reactive([]);
 onMounted(() => {
   photoList().then(({ data }) => {
     Object.assign(fileList, data.data);
+    console.log('fileList',fileList);
+    
   });
   getCompanionList();
 });
@@ -213,6 +218,7 @@ const confirm = async formEl => {
           dialogFormVisible.value = false;
           ElMessage.success("添加成功");
           getCompanionList();
+          formReg.value.resetFields();
         } else {
           ElMessage.error("添加失败");
         }
@@ -240,6 +246,7 @@ const open = (rowData = {}) => {
 
 
 
+// 分页
 const handleSizeChange = (val) => {
   paginationData.size=val
   getCompanionList()
@@ -251,8 +258,9 @@ const handleCurrentChange = (val) => {
 
 const multipleSelection=ref([])
 // 选中某一行的回调
+// 选择某一行的checkbox之后，这个回调会传递一个数组，数组是被选中的所有对象
 const handleSelectionChange=(val)=>{
-  multipleSelection.value = val
+  multipleSelection.value=val
 }
 
 

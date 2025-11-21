@@ -53,6 +53,7 @@
   import {computed} from 'vue'
   import {useRouter} from 'vue-router'
   const props=defineProps(['menuData','index'])
+  console.log('aa',props.menuData);
   //创建router实例
   const router = useRouter()
 

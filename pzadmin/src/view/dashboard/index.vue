@@ -1,6 +1,6 @@
 <template>
     <div>
-        
+        <PanelHead></PanelHead>
     </div>
 </template>
 

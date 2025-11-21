@@ -12,7 +12,7 @@ export default  createStore({
         key:'pz_v3pz'
     })],
     modules:{
-        menu
+        menu,
     }
 })
 

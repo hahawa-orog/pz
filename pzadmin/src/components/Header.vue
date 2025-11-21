@@ -20,6 +20,7 @@
             在el-options里定义commend属性来调用自定义事件，但是所有的选项都可以调用事件，需要指定不同的命令来判断是那个事件
            -->
 
+          <!-- handleCommand  会传递每个下拉菜单的command属性值 -->
           <el-dropdown class="dropdown" @command="handleCommand">
             <div class="el-dropdown-link flex-box">
               <el-avatar :size="25" :src="userInfo.avatar" />
@@ -59,7 +60,9 @@ const userInfo=JSON.parse(localStorage.getItem('pz_userInfo'))
 // item是点击的那个面包屑对象，index是索引
 const closeTab=(item, index)=>{
 
+  // 提交commit之后就已经可以将面包屑去除，但是高亮效果混乱
   store.commit('closeTab',item)
+  console.log(route.path,'aaa');
     // 关闭不是当前选中的面包屑,也就是关闭的不是当前路由
   if (item.path !== route.path) {
     return;
@@ -70,7 +73,9 @@ const closeTab=(item, index)=>{
   const selectMenuData = selectMenu.value;   //通过计算属性获得store数据是经过ref加工，在script里想要使用，要通过value来获取他的值
   // 首先考虑只有一个面包屑
   if(selectMenuData.length==0){  //长度等于0，表示所有的面包屑都已经关闭
+    // 回到第一页并且改变菜单高亮
     router.push({path:'/dashboard'})
+    store.commit('changeActive','1-1')
     return;
   }
 
@@ -88,12 +93,14 @@ const closeTab=(item, index)=>{
 
 
 // 下拉菜单指令
+// handleCOmmand  会传递每个下拉菜单的command属性值
 const handleCommand=(commend)=>{
   if(commend== 'logout'){
     // 退出登录，清除本地存储的内容并且进行路由跳转
     localStorage.removeItem('pz_token')
     localStorage.removeItem('pz_userInfo')
     localStorage.removeItem('pz_v3pz')
+    // console.log(window.location.origin);
     window.location.href=window.location.origin
   }
 }
@@ -163,6 +170,7 @@ const handleCommand=(commend)=>{
     display: flex;
     align-items: center;
     width: 120px;
+    padding-right: 25px;
     cursor: pointer;
 
     .user-name {

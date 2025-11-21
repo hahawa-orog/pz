@@ -16,15 +16,15 @@
             <el-table-column prop="out_trade_no" label="订单号" width="140" />
             <el-table-column prop="hospital_name" label="就诊医院" />
             <el-table-column prop="service_name" label="陪诊服务" width="160"/>
-            <el-table-column  label="陪护师">
+            <el-table-column prop="companion.avatar" label="陪护师">
                 <template #default="scope">
-                    <el-image style="width:40px height:40px" :src="scope.row.companion.avatar"></el-image>
+                    <el-image style="width: 40px; height: 40px"  :src="scope.row.companion.avatar" />
                 </template>
             </el-table-column>
             
             <el-table-column prop="companion.mobile" label="陪诊师电话" />
             <el-table-column prop="price" label="总价" />
-            <el-table-column prop="paidPrice" label="已付" width="50"/>
+            <el-table-column prop="paidPrice" label="已付" width="60"/>
             <el-table-column prop="starttime" label="下单时间" />
             <el-table-column prop="service_state" label="订单状态" >
                 <template #default="scope">
@@ -47,7 +47,7 @@
                     </template>
                     <template #reference  v-else>
                         <el-button type="primary" disabled link >暂无服务</el-button>
-                </template>
+                    </template>
                 </el-popconfirm>
                
                 </template>
@@ -57,7 +57,6 @@
         </el-table>
         <el-pagination
             class="pagination"
-            v-model="paginationData.pageNum"
             :current-page="paginationData.pageNum"
             :page-size="paginationData.pageSize"
             layout="total, prev, pager, next"
@@ -68,94 +67,87 @@
 </template>
 
 <script setup>
-
-    import {adminOrder,updateOrder} from '../../../api/index'
-    import {ref,reactive,onMounted,toRaw} from 'vue'
-    // 列表当前页和一页的数量
+import { adminOrder, updateOrder } from "../../../api/index";
+import { ref, reactive, onMounted, toRaw } from "vue";
+// 列表当前页和一页的数量
 const paginationData = reactive({
   pageNum: 1,
-  pageSize: 5
+  pageSize: 15
 });
 
-const listData=reactive({
-    list:[],
-    total:''
-})
+const listData = reactive({
+  list: [],
+  total: ""
+});
 
 
 // 搜索框内容
-const searchData=reactive({
-    out_trade_no:''
-})
+const searchData = reactive({
+  out_trade_no: ""
+});
 
 // 获取列表
-const getOrderList=()=>{
-    adminOrder(paginationData).then(({data})=>{
-        Object.assign(listData,data.data)
-    })
-}
-
-
+const getOrderList = () => {
+  adminOrder(paginationData).then(({ data }) => {
+    Object.assign(listData, data.data);
+    console.log(listData, "listData");
+  });
+};
 
 // 点击搜索
-const searchOrder=()=>{
-    // console.log(1212,toRaw(Object.assign(paginationData,searchData)));
-    adminOrder(toRaw(Object.assign(paginationData,searchData))).then((data)=>{
-        // console.log(data.data);
-        Object.assign(listData,data.data.data)
-        getOrderList()
-    })
-}
+const searchOrder = () => {
+  // console.log(1212,toRaw(Object.assign(paginationData,searchData)));
+  adminOrder(toRaw(Object.assign(paginationData, searchData))).then(data => {
+    // console.log(data.data);
+    Object.assign(listData, data.data.data);
+    getOrderList();
+  });
+};
 
+onMounted(() => {
+  console.log(123);
+  getOrderList();
+});
 
-onMounted(()=>{
-    console.log(123);
-    getOrderList()
-})
-
-const statusMap=(key)=>{
-    const obj={
-        '已取消':'info',
-        '待支付':'warning',
-        '已完成':'success'
-    }
-    return obj[key]
-}
+const statusMap = key => {
+  const obj = {
+    已取消: "info",
+    待支付: "warning",
+    已完成: "success"
+  };
+  return obj[key];
+};
 
 // 点击服务完成按钮
-const confirmService=(item)=>{
-    updateOrder({id:item.out_trade_no}).then((data)=>{
-        console.log(data);
-        // getOrderList()
-    })
-}
+const confirmService = item => {
+  updateOrder({ id: item.out_trade_no }).then(data => {
+    // console.log(data);
+    getOrderList();
+  });
+};
 
-const changePage=(val)=>{
-    paginationData.pageNum=val
-    getOrderList()
-}
-
-
-
+const changePage = val => {
+  paginationData.pageNum = val;
+  getOrderList();
+};
 </script>
 
 <style lang="less" scoped>
-.pagination{
-    background-color: #fff;
-    width: 100%;
-    display: flex;
-    justify-content: right;
+.pagination {
+  background-color: #fff;
+  width: 100%;
+  display: flex;
+  justify-content: right;
 }
 
-.form{
-    background-color: #fff;
-    padding: 10px;
-    .search{
+.form {
+  background-color: #fff;
+  padding: 10px;
+  .search {
     display: flex;
-   
+
     justify-content: right;
     align-items: center;
+  }
 }
-}
-
 </style>

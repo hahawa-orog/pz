@@ -32,9 +32,8 @@
                       <el-input v-model="formInfo.validCode" placeholder="验证码" prefix-icon="Lock">
                             <template #append >
                               <span @click="sendCode"> {{ countdown.msg }}</span>
-                            </template>
+                            </template> 
                       </el-input>
-                      
                   </el-form-item>
                   <el-form-item>
                         <el-button type="primary" :style="{width:'100%'}" @click="sumbitForm(loginFormRef)">
@@ -111,7 +110,6 @@ const sumbitForm = async (formEl) => {
               // 将routerList转变为一个普通对象，然后通过router.addRoute添加到路由当中
               // routerList是通过computed从store中得到的，属于ref对象，可以通过toRaw转化成普通对象
               toRaw(routerList.value).forEach(item=>{
-                // console.log('routerList转化为普通对象之后的每一项',item);
                 router.addRoute('main',item)
               })
               router.push('/')

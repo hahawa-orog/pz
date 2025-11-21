@@ -53,8 +53,8 @@
         <!-- 弹窗 -->
         <el-dialog v-model="dialogFormVisible" :before-close="beforeClose" title="" width="500" draggable="true">
             <el-form :model="formInfo" label-width="100px" label-positin="left" ref="formReg" :rules="rules">
-                <el-form-item label="手机号" prop="phone">
-                    <el-input v-model="formInfo.phone" disabled/>
+                <el-form-item label="手机号" prop="mobile">
+                    <el-input v-model="formInfo.mobile" disabled/>
                 </el-form-item>
                 <el-form-item label="名称" prop="name">
                     <el-input v-model="formInfo.name"/>
@@ -124,7 +124,6 @@ onMounted(() => {
     getAuthAdmin()
   
     menuSelectList().then(({ data }) => {
-        console.log('data',data.data);
       options.value = data.data;
     });
 });
@@ -145,8 +144,9 @@ const handleCurrentChange = (val) => {
 // 弹窗
 const formReg=ref()    //弹窗实例,后续可以用于校验
 const dialogFormVisible=ref(false)
+// 弹窗数据
 const formInfo=reactive({
-    phone:'',
+    mobile:'',
     permissions_id:'',
     name:'',
 
@@ -160,9 +160,10 @@ const beforeClose=()=>{
 const open=(item)=>{
     console.log('item',item);
     dialogFormVisible.value=true;
-    formInfo.phone = item.mobile
-    formInfo.permissions_id=item.permissions_id
-    formInfo.name=item.name
+    // formInfo.phone = item.mobile
+    // formInfo.permissions_id=item.permissions_id
+    // formInfo.name=item.name
+    Object.assign(formInfo,item)
 }
 
 const rules = reactive({

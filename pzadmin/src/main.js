@@ -1,5 +1,6 @@
 import { createApp } from 'vue'
 import App from './App.vue'
+
 import ElementPlus from 'element-plus'
 import 'element-plus/dist/index.css'
 // 因为项目中使用了element的图标，这样的代码是引入全局图标
