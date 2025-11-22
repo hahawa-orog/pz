@@ -9,6 +9,8 @@ const http = axios.create({
 
 // 添加请求拦截器
 http.interceptors.request.use(function (config) {
+
+  // config.headers['terminal']='h5'
     // 判断是否需哟携带token  
     const token = localStorage.getItem('h5_token')
     const whiteUrl=['/login']  //白名单，只有这三个接口不需要携带token
@@ -25,7 +27,7 @@ http.interceptors.request.use(function (config) {
 http.interceptors.response.use(function (response) {
     // 根据响应的数据，如果有错，给用户一个响应
     if(response.data.code == -1){
-
+      showNotify({ message: response.data.message });
     }
     // token过期，还是可以通过全局前置路由守卫的处理，需要在相应拦截器里进行处理
     // 创建一个请求，在挂载某个组件的时候触发，然后修改一下存储的token，然后输出请求返回的结果就可以看见token过期返回的数据

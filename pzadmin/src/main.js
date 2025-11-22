@@ -27,7 +27,7 @@ if(localStorageData){
   // 加工路由，添加component属性
     store.commit('dynamicMenu',localStorageData.menu.routerList)
     store.state.menu.routerList.forEach((item)=>{
-    router.addRoute('main',item)
+      router.addRoute('main',item)
   })
 }
 // routerSet(localStorageData.menu.routerList)

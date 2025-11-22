@@ -13,7 +13,6 @@ const routes = [
     redirect:(to)=>{
 // 获取内存中存储的信息
       let localData= JSON.parse(localStorage.getItem('pz_v3pz'))
-      console.log('localData',localData);
       if(localData){
           const child = localData.menu.routerList[0].children;
           // 有子菜单 ，跳转到子菜单第一项

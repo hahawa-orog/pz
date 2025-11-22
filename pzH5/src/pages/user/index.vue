@@ -89,10 +89,10 @@ const goOrder = active => {
 };
 
 const quit = () => {
-  console.log(222);
   show.value = false;
   localStorage.removeItem("h5_token");
   localStorage.removeItem("userInfo");
+  localStorage.removeItem('active')
   // router.push("login");
   location.reload();
 };
