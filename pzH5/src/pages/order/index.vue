@@ -70,6 +70,7 @@ const colorMap=ref({
 
 const getOrderList = async state => {
   await proxy.$api.orderList({ state }).then(({ data }) => {
+  
     order.value = data.data;
     // 给order加一个倒计时，两小时
     order.value.forEach(item=>{
@@ -79,10 +80,10 @@ const getOrderList = async state => {
             item.time=time
         }
     })
-    console.log(order.value);
   });
 };
 const onClickTab = item => {
+  activeName.value=item.name
   getOrderList(item.name);
 };
 

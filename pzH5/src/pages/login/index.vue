@@ -21,7 +21,7 @@
             </van-cell-group>
             <div class="sub">
                 <!-- native-type="submit"是原生button的type属性 -->
-                <van-button type="primary" native-type="submit" block  round>主要按钮</van-button>
+                <van-button type="primary" native-type="submit" block  round>登录</van-button>
             </div>
         </van-form>
 

@@ -38,7 +38,11 @@
 
 
      <div class="yy-list">
-        <van-row justify="space-between" @click="goOrder(item)" class="yy"  v-for="(item,index) in homeData.hospitals" :key="index">
+        <van-row justify="space-between" 
+                  @click="goOrder(item)" 
+                  class="yy"  
+                  v-for="(item,index) in homeData.hospitals" 
+                  :key="index">
             <van-col span="6">
                 <van-image
                     :src="item.avatar_url"

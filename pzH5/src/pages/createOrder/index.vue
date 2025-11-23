@@ -30,6 +30,7 @@
 
 
         <van-cell-group  class="cell">
+          <!-- 就诊医院 -->
             <van-cell >
                 <template #title>
                         <div class="title">
@@ -44,6 +45,8 @@
                   
                 </template>
             </van-cell>
+
+            <!-- 就诊时间 -->
             <van-cell >
                 <template #title>
                         <div class="title">
@@ -184,10 +187,11 @@
 
 <script setup>
 import { ref, reactive, getCurrentInstance, onMounted, computed } from "vue";
-import { useRouter } from "vue-router";
+import { useRouter,useRoute } from "vue-router";
 import schedule from "../../components/schedule.vue";
 import qrcode from 'qrcode'
 const router = useRouter();
+const route = useRoute();
 const { proxy } = getCurrentInstance();
 
 // 所有选项选择的值
@@ -200,6 +204,8 @@ const formData = reactive({
   tel:'',
   demand:''
 });
+
+// 获取选择列表的信息，陪诊师和医院信息
 const createInfo = reactive({
   companion: [],
   hospitals: [],
@@ -208,7 +214,6 @@ const createInfo = reactive({
 onMounted(async () => {
   const { data } = await proxy.$api.h5Companion();
   Object.assign(createInfo, data.data);
-  console.log(createInfo);
 });
 const goBack = () => {
   router.go(-1);
@@ -242,6 +247,7 @@ currentDate.value.push(date.getDate())
 
 const openHospital = () => {
   showHospitals.value = true;
+  console.log('showHospColumns',showHospColumns);
 };
 const cancelHospital = () => {
   showHospitals.value = false;
@@ -305,7 +311,8 @@ const confirmCompanion=item=>{
 const showPay=ref(false)
 // 二维码图片路径
 const imageUrl=ref('')
-// 点击确认按钮
+
+// 点击确认按钮并进行验证
 const createOrder=()=>{
   const params=[
     'hospital_id',
@@ -324,7 +331,6 @@ const createOrder=()=>{
   proxy.$api.createOrder(formData).then(({data})=>{
     qrcode.toDataURL(data.data.wx_code)
     .then(url => {   //是响应成功后返回一个二维码
-      // console.log(url);
       imageUrl.value=url
       showPay.value=true   
     })  
@@ -338,7 +344,9 @@ const createOrder=()=>{
 
 // 在支付的时候点击关闭
 const clickClose=()=>{
+  localStorage.setItem('active','订单')
   router.push('/order')
+  // console.log(route);
 }
 </script>
 
