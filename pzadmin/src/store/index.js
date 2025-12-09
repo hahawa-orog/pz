@@ -4,6 +4,7 @@ import createPersistedstate from 'vuex-persistedstate'
 
 import { createStore } from 'vuex'
 import menu from './menu'
+import user from './user'
 
 // 创建一个新的 store 实例
 export default  createStore({
@@ -13,6 +14,7 @@ export default  createStore({
     })],
     modules:{
         menu,
+        user
     }
 })
 

@@ -45,6 +45,7 @@ const onSubmit=async ()=>{
     if(data.code===10000){
         localStorage.setItem('h5_token',data.data.token)
         localStorage.setItem('userInfo',JSON.stringify(data.data.userInfo))
+        localStorage.setItem('active','首页')
         router.push('/home')
     }
 }

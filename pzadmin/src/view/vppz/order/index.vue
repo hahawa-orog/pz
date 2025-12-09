@@ -16,11 +16,7 @@
             <el-table-column prop="out_trade_no" label="订单号" width="140" />
             <el-table-column prop="hospital_name" label="就诊医院" />
             <el-table-column prop="service_name" label="陪诊服务" width="160"/>
-            <el-table-column prop="companion.avatar" label="陪护师">
-                <template #default="scope">
-                    <el-image style="width: 40px; height: 40px"  :src="scope.row.companion.avatar" />
-                </template>
-            </el-table-column>
+         
             
             <el-table-column prop="companion.mobile" label="陪诊师电话" />
             <el-table-column prop="price" label="总价" />
@@ -80,6 +76,9 @@ const listData = reactive({
   total: ""
 });
 
+const dian=(val)=>{
+  console.log('val',val.row.companion.avatar);
+}
 
 // 搜索框内容
 const searchData = reactive({
@@ -105,7 +104,6 @@ const searchOrder = () => {
 };
 
 onMounted(() => {
-  console.log(123);
   getOrderList();
 });
 

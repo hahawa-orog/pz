@@ -102,8 +102,6 @@ const countDown=computed(()=>{
 onMounted(()=>{
     proxy.$api.orderDetail(route.query.oid).then(({data})=>{
         orderData.value=data.data
-        
-        console.log( orderData.value);
     })
 })
 const goBack=()=>{
@@ -117,7 +115,6 @@ const showPay=ref(false)
 
 const openPay=()=>{
     showPay.value=true
-    console.log(imageUrl.value);
     qrcode.toDataURL(orderData.value.code_url)
             .then(url => {   //是响应成功后返回一个二维码
             // console.log(url);

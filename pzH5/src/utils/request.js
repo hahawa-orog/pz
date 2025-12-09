@@ -13,7 +13,7 @@ http.interceptors.request.use(function (config) {
   // config.headers['terminal']='h5'
     // 判断是否需哟携带token  
     const token = localStorage.getItem('h5_token')
-    const whiteUrl=['/login']  //白名单，只有这三个接口不需要携带token
+    const whiteUrl=['/login']  //白名单，
     if( token && !whiteUrl.includes(config.url)){  //需要携带token
         config.headers['h-token'] = token    //给请求头添加一个x-token字段
     }

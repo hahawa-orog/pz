@@ -15,14 +15,15 @@
 </template>
 
 <script setup>
-import { ref } from "vue"
+import { ref,computed } from "vue"
 import {useRouter,useRoute} from 'vue-router'
+import {useStore} from 'vuex'
+const store=useStore()
 const router = useRouter()
-const route = useRoute()
-const active =localStorage.getItem('active') ? ref(localStorage.getItem('active')) :  ref('首页')
+const active=computed(()=>store.state.tag.active)
 const change=(item,index)=>{
     router.push(item.path)
-    localStorage.setItem('active',active.value)
+    store.commit('changeActive',item.meta.name)
 }
 
 

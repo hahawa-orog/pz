@@ -95,7 +95,7 @@ const sumbitForm = async (formEl) => {
             localStorage.setItem('pz_userInfo',JSON.stringify(data.data.userInfo))
             menuPermissions().then(({data})=>{
               // 这是获取菜单权限信息，组件属性还是组件名  例如：component:'/dashboard'
-              // console.log('login.vue 的data',data);  
+            //  console.log('login.vue 的data',data);  
               // 生成完整的路由数据  好好了解了解
               // 生成完整的路由数据  好好了解了解
               // 生成完整的路由数据  好好了解了解

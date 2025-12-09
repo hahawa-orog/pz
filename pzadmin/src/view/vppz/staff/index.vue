@@ -174,7 +174,6 @@ const companionListOptions = reactive({
 const getCompanionList = () => {
   CompanionList(paginationData).then(({ data }) => {
     Object.assign(companionListOptions, data.data);
-    console.log('companionListOptions',companionListOptions);
     companionListOptions.list.forEach((item)=>{
         item.create_time=dayjs(item.create_time).format('YYYY-MM-DD HH:mm:ss')
     })
@@ -186,7 +185,6 @@ const fileList = reactive([]);
 onMounted(() => {
   photoList().then(({ data }) => {
     Object.assign(fileList, data.data);
-    console.log('fileList',fileList);
     
   });
   getCompanionList();

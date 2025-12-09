@@ -7,7 +7,7 @@
 
 
     <div class="order">
-      <div class="top" @click="goOrder">
+      <div class="top" @click="goOrder('')">
         <div class="text1">我的订单</div>
         <div class="text2">全部</div>
       </div>
@@ -73,8 +73,10 @@
 
 <script setup>
 import { ref, computed } from "vue";
+import {useStore} from 'vuex'
 import { useRouter } from "vue-router";
 const router = useRouter();
+const store=useStore()
 const userInfo = computed(() => {
   return JSON.parse(localStorage.getItem("userInfo"));
 });
@@ -86,6 +88,8 @@ const openShow = () => {
 
 const goOrder = active => {
   router.push(`/order?activeName=${active}`);
+  store.commit('changeActive','订单')
+  localStorage.setItem('active','订单')
 };
 
 const quit = () => {

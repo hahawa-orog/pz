@@ -36,6 +36,7 @@ const avtive=computed(()=>store.state.menu.menuActive)
 // 这是获取的死的路由信息，登录之后获取了动态的路由信息，需要重新获取
 // const menuData = reactive(router.options.routes[0].children) //这里获取的是侧边导航栏的路由信息，将其传递给TreeMenu组件
 const menuData =computed(()=>store.state.menu.routerList)
+console.log('menuData',menuData);
 import {useStore} from 'vuex'
 
 

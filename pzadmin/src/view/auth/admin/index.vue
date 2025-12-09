@@ -132,6 +132,7 @@ onMounted(() => {
 
 
 const handleSizeChange = (val) => {
+  console.log('handleSizeChange',val);
   paginationData.size=val
   getAuthAdmin()
 }
@@ -158,7 +159,6 @@ const beforeClose=()=>{
 }
 // 打开弹窗
 const open=(item)=>{
-    console.log('item',item);
     dialogFormVisible.value=true;
     // formInfo.phone = item.mobile
     // formInfo.permissions_id=item.permissions_id

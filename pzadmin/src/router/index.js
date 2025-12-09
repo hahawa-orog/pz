@@ -91,6 +91,7 @@ const router = createRouter({       //创建路由
 
 
 router.beforeEach((to, from) => {
+
   // 非登录页面，token不存在
   const token=localStorage.getItem('pz_token')
   if(!token && to.path !== '/login'){

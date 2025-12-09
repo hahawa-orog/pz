@@ -62,7 +62,6 @@ const closeTab=(item, index)=>{
 
   // 提交commit之后就已经可以将面包屑去除，但是高亮效果混乱
   store.commit('closeTab',item)
-  console.log(route.path,'aaa');
     // 关闭不是当前选中的面包屑,也就是关闭的不是当前路由
   if (item.path !== route.path) {
     return;

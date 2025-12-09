@@ -48,14 +48,13 @@
 </template>
 
 <script setup>
-import { ref, getCurrentInstance, onMounted } from "vue";
+import { ref, getCurrentInstance, onMounted ,onBeforeUnmount,onUnmounted} from "vue";
 import {useRouter,useRoute} from 'vue-router'
 const router = useRouter()
 const route = useRoute()
 
 const { proxy } = getCurrentInstance();
 const activeName = ref('');
-
 
 
 // 用来接收订单列表
@@ -83,6 +82,7 @@ const getOrderList = async state => {
   });
 };
 const onClickTab = item => {
+  console.log(item);
   activeName.value=item.name
   getOrderList(item.name);
 };
